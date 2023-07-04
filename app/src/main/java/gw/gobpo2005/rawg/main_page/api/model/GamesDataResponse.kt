@@ -9,8 +9,8 @@ data class GamesDataResponse(
     val next: String?,
     @SerializedName("previous")
     val previous: String?,
-    @SerializedName("result")
-    val result: List<ResultDataResponse>?,
+    @SerializedName("results")
+    val results: List<ResultDataResponse>?,
     @SerializedName("seo_title")
     val seoTitle: String?,
     @SerializedName("seo_description")

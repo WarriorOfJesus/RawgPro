@@ -5,9 +5,9 @@ import gw.gobpo2005.rawg.main_page.model.GamesData
 import gw.gobpo2005.rawg.main_page.model.converter.Converter
 import gw.gobpo2005.rawg.utils.Constants
 
-class GamesRemoteRepository(
+class GamesRemoteRepositoryImpl(
     private val api: RawgApi
-) : GameRepository{
+) : GameRepository {
     override suspend fun getGamesData(key: String): GamesData {
         val data = api.getListOfGame(Constants.API_KEY)
         return Converter.fromNetwork(data)

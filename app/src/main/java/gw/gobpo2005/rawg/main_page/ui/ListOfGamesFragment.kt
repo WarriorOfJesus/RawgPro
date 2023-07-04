@@ -7,8 +7,10 @@ import gw.gobpo2005.rawg.R
 import gw.gobpo2005.rawg.common.fragment.BaseFragment
 import gw.gobpo2005.rawg.databinding.FragmentListOfGamesBinding
 import gw.gobpo2005.rawg.main_page.ui.adapter.GamesAdapter
+import gw.gobpo2005.rawg.main_page.ui.model.ResultDataUi
 import gw.gobpo2005.rawg.utils.viewbinding.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
 
@@ -26,9 +28,9 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
         viewModel.getGamesData()
         layoutManager = LinearLayoutManager(requireContext())
         with(binding) {
-            recyclerOfGames.layoutManager = layoutManager
             recyclerOfGames.adapter = adapter
         }
+        setObservers()
     }
 
     override fun onDestroy() {
@@ -37,11 +39,22 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
         binding.recyclerOfGames.layoutManager = null
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.recyclerOfGames.layoutManager = layoutManager
+        Timber.i("__On start")
+    }
+
     private fun setObservers() {
         with(viewModel) {
-            observeNullable(gamesData){games ->
-                adapter.setData(games)
+            observe(gamesData) { games ->
+                Timber.i("___setObservers")
+                showData(games)
             }
         }
+    }
+
+    private fun showData(data: List<ResultDataUi>) {
+        adapter.setData(data)
     }
 }

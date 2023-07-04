@@ -10,7 +10,7 @@ object Converter {
             count = response.count ?: 0,
             next = response.next ?: "",
             previous = response.previous ?: "",
-            result = response.result?.let { fromNetwork(it) },
+            result = response.results?.let { fromNetwork(it) },
             seoTitle = response.seoTitle ?: "",
             seoDescription = response.seoDescription ?: "",
             seoKeywords = response.seoKeywords ?: "",

@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".main_page.ui.ListOfGamesFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="salamat"
+        android:textColor="@color/purple_700"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerOfGames"
         android:layout_width="match_parent"
