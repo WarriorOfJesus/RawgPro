@@ -1,5 +1,6 @@
 package gw.gobpo2005.rawg.main_page.db.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,8 +11,12 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GamesDao {
     @Query(value = "SELECT * FROM games")
-    fun getAllGames() : Flow<List<GamesEntity>>
+    fun getAllGames(): Flow<List<GamesEntity>>
+
+
+    @Query("SELECT * FROM games ")
+    fun pagingSource(): PagingSource<Int, GamesEntity>
 
     @Insert(entity = GamesEntity::class, onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAll(games : List<GamesEntity>)
+    fun insertAll(games: List<GamesEntity>)
 }

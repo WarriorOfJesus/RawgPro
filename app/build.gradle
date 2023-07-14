@@ -87,6 +87,16 @@ dependencies {
     //Room
     def room_version = "2.5.2"
     implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-paging:$room_version")
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
+
+    //pull-to-refresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    // for loading images
+    implementation "com.github.bumptech.glide:glide:4.12.0"
 }

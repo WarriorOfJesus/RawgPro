@@ -7,12 +7,15 @@ import gw.gobpo2005.rawg.main_page.db.database.AppDataBase
 import gw.gobpo2005.rawg.main_page.interactor.MainPageInteractor
 import gw.gobpo2005.rawg.main_page.repository.GamesLocalRepository
 import gw.gobpo2005.rawg.main_page.repository.GamesLocalRepositoryImpl
-import org.koin.core.module.dsl.factoryOf
-import gw.gobpo2005.rawg.main_page.repository.remote.GameRepository
+import gw.gobpo2005.rawg.main_page.repository.remote.GamesRemoteRepository
 import gw.gobpo2005.rawg.main_page.repository.remote.GamesRemoteRepositoryImpl
+import gw.gobpo2005.rawg.main_page.repository.remote.GenresRepository
+import gw.gobpo2005.rawg.main_page.repository.remote.GenresRepositoryImpl
 import gw.gobpo2005.rawg.main_page.ui.RawgViewModel
 import gw.gobpo2005.rawg.utils.Constants
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -24,11 +27,16 @@ object MainPageModule : InjectionModule {
                 .build()
         }
         single { get<Retrofit>().create(RawgApi::class.java) }
-        singleOf(::GamesRemoteRepositoryImpl) bind GameRepository::class
+        singleOf(::GamesRemoteRepositoryImpl) bind GamesRemoteRepository::class
         single { get<AppDataBase>().getGamesDao() }
+        single { get<AppDataBase>().getGenresDao() }
         singleOf(::GamesLocalRepositoryImpl) bind GamesLocalRepository::class
-        factoryOf(::MainPageInteractor)
-        factoryOf(::RawgViewModel)
+        singleOf(::GenresRepositoryImpl) bind GenresRepository::class
+        single(qualifier = named("io")) { Dispatchers.IO}
+        single(qualifier = named("default")) { Dispatchers.Default}
+        single{Dispatchers.Main}
+        factory{MainPageInteractor(get(), get(), get())}
+        factory{RawgViewModel(get(), get())}
 
     }
 }
