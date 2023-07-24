@@ -1,12 +1,11 @@
-package gw.gobpo2005.rawg.main_page.model.genres
+package gw.gobpo2005.rawg.main_page.model.games
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GamesGenresData(
+data class Platform(
     val id: Int,
-    val slug: String,
     val name: String,
-    val added: Int
+    val slug: String
 ) : Parcelable

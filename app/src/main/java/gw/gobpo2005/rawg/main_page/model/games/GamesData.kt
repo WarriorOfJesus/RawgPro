@@ -15,17 +15,20 @@ data class GamesData(
     val rating: Float,
     val playtime: Int,
     val updated: String,
+    val platforms: List<PlatformContainer>,
+    val screenshot: List<ShortScreenshot> = emptyList()
 ) : Parcelable {
 
     fun toGamesEntity() = GamesEntity(
-        id = id,
         name = name,
         image = backgroundImage,
         rating = rating,
         released = released,
         playtime = playtime,
         updated = updated,
-        slug = slug
+        slug = slug,
+        platforms = platforms,
+        screenshots = screenshot
     )
 }
 

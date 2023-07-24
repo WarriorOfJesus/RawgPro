@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import gw.gobpo2005.rawg.R
 import gw.gobpo2005.rawg.databinding.ItemGamesBinding
 import gw.gobpo2005.rawg.main_page.db.model.GamesEntity
-import gw.gobpo2005.rawg.main_page.ui.model.ResultDataUi
+
 class GamesAdapterPaging :
     PagingDataAdapter<GamesEntity, GamesAdapterPaging.Holder>(GamesDiffCallBack()) {
 

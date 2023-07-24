@@ -6,6 +6,7 @@
     android:background="#BF000000">
 
     <ImageView
+        android:id="@+id/screenshotImage"
         android:layout_width="400dp"
         android:layout_height="200dp"
         android:src="@drawable/ic_info_image_game"/>

@@ -2,6 +2,7 @@ package gw.gobpo2005.rawg.common.fragment
 
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -22,5 +23,14 @@ open class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
                 flow.collect { body(it) }
             }
         }
+    }
+
+    fun Fragment.hideAndAddFragment(addFragment: Fragment, id: Int) {
+        val fragmentManager = parentFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+            .hide(this)
+            .add(id, addFragment)
+            .commit()
     }
 }

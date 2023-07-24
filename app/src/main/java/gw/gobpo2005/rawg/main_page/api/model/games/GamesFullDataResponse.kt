@@ -10,7 +10,7 @@ data class GamesFullDataResponse(
     @SerializedName("previous")
     val previous: String?,
     @SerializedName("results")
-    val results: List<GamesDataResponse>?,
+    val results: List<GamesDataResponse> = emptyList(),
     @SerializedName("seo_title")
     val seoTitle: String?,
     @SerializedName("seo_description")

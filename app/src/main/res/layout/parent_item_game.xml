@@ -2,29 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:background="@drawable/fon_list_game"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/genreName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/parent"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:fontFamily="@font/font_game_for_dop_info"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/child_recycler"
+        android:id="@+id/games_recycler"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:orientation="horizontal"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_games" />
+        android:orientation="horizontal"
+        tools:listitem="@layout/item_games"
+        />
 
 
 </LinearLayout>

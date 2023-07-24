@@ -36,5 +36,9 @@ data class GamesDataResponse(
     @SerializedName("suggestions_count")
     val suggestionsCount: Int?,
     @SerializedName("updated")
-    val updated: String?
+    val updated: String?,
+    @SerializedName("parent_platforms")
+    val platforms: List<PlatformContainerResponse>,
+    @SerializedName("short_screenshots")
+    val shortScreenshots: List<ShortScreenshotResponse>
 )

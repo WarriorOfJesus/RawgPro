@@ -16,6 +16,6 @@ class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        replace(ListOfGamesFragment(), containerId = R.id.container)
+        replace(ListOfGamesFragment(), containerId = R.id.fragmentContainer)
     }
 }

@@ -1,6 +1,6 @@
 package gw.gobpo2005.rawg.common.di
 
-import gw.gobpo2005.rawg.utils.Constants
+import gw.gobpo2005.rawg.utils.Utils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.Module
@@ -22,7 +22,7 @@ object NetworkModule : InjectionModule {
 
                 Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl(Constants.BASE_URL)
+                    .baseUrl(Utils.BASE_URL)
                     .client(client)
                     .build()
             }

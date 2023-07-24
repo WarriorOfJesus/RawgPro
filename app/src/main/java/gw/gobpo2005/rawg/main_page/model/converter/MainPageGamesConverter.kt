@@ -5,12 +5,12 @@ import gw.gobpo2005.rawg.main_page.model.games.*
 
 object MainPageGamesConverter {
 
-    fun fromNetwork(response: GamesFullDataResponse) =
+    fun fromNetworkGamesFull(response: GamesFullDataResponse, genre: String) =
         GamesFullData(
             count = response.count ?: 0,
             next = response.next ,
             previous = response.previous ,
-            result = response.results?.let { fromNetwork(it) } ?: emptyList(),
+            result = fromNetworkListGames(response.results, genre),
             seoTitle = response.seoTitle ?: "",
             seoDescription = response.seoDescription ?: "",
             seoKeywords = response.seoKeywords ?: "",
@@ -22,18 +22,37 @@ object MainPageGamesConverter {
         )
 
 
-    private fun fromNetwork(response: List<GamesDataResponse>): List<GamesData> {
+    fun fromNetworkListGames(response: List<GamesDataResponse>, genre : String): List<GamesData> {
         return response.map { data ->
             GamesData(
                 id = data.id ?: 0,
-                slug = data.slug ?: "",
+                slug = genre,
                 name = data.name ?: "",
                 released = data.released ?: "",
                 backgroundImage = data.backgroundImage ?: "",
                 rating = data.rating ?: 0.0F,
                 playtime = data.playtime ?: 0,
-                updated = data.updated ?: ""
+                updated = data.updated ?: "",
+                platforms = fromNetworkPlatformsContainer(data.platforms),
+                screenshot = fromNetworkShortScreenshot(data.shortScreenshots),
+            )
+        }
+    }
 
+    private fun fromNetworkPlatformsContainer(response: List<PlatformContainerResponse>) : List<PlatformContainer>{
+        return response.map {
+            PlatformContainer(
+                platform = MainPageGenresConverter.fromNetworkPlatforms(it.platform)
+            )
+        }
+    }
+
+
+    private fun fromNetworkShortScreenshot(response : List<ShortScreenshotResponse>) : List<ShortScreenshot>{
+        return response.map { data->
+            ShortScreenshot(
+//                id = data.id,
+                image = data.image
             )
         }
     }

@@ -1,22 +1,16 @@
 package gw.gobpo2005.rawg.main_page.db.dao
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import gw.gobpo2005.rawg.main_page.db.model.GamesEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GamesDao {
-    @Query(value = "SELECT * FROM games")
-    fun getAllGames(): Flow<List<GamesEntity>>
+    @Query(value = "SELECT * FROM games WHERE slug LIKE :genre LIMIT :limit OFFSET :offset")
+    fun getAllGames(genre: String, limit: Int, offset: Int): List<GamesEntity>
 
-
-    @Query("SELECT * FROM games ")
-    fun pagingSource(): PagingSource<Int, GamesEntity>
-
-    @Insert(entity = GamesEntity::class, onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(games: List<GamesEntity>)
+    @Insert(entity = GamesEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    fun setGames(games: List<GamesEntity>)
 }

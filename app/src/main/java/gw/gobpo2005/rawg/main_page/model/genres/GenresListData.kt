@@ -7,7 +7,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GenresListData(
     val count: Int,
-    val next: String,
-    val previous: String,
     val results: List<GenresData>
 ) : Parcelable

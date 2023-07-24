@@ -26,7 +26,7 @@ inline fun LifecycleOwner.whenStateAtLeast(state: Lifecycle.State, crossinline b
 
 fun FragmentActivity.replace(
     target: Fragment,
-    @IdRes containerId: Int = R.id.container,
+    @IdRes containerId: Int = R.id.fragmentContainer,
     addToBackStack: Boolean = true
 ) = whenStateAtLeast(Lifecycle.State.STARTED) {
     supportFragmentManager.commit(allowStateLoss = true) {
@@ -38,7 +38,7 @@ fun FragmentActivity.replace(
 
 fun Fragment.replace(
     target: Fragment,
-    @IdRes containerId: Int = R.id.container,
+    @IdRes containerId: Int = R.id.fragmentContainer,
     addToBackStack: Boolean = true,
     @AnimRes enter: Int = R.anim.nav_enter,
     @AnimRes exit: Int = R.anim.nav_exit,

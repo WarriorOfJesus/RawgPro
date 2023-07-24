@@ -1,33 +1,31 @@
 package gw.gobpo2005.rawg.main_page.db.model
 
-import androidx.room.ColumnInfo
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import gw.gobpo2005.rawg.main_page.model.games.GamesData
-import gw.gobpo2005.rawg.main_page.ui.model.ResultDataUi
+import gw.gobpo2005.rawg.main_page.model.games.PlatformContainer
+import gw.gobpo2005.rawg.main_page.model.games.ShortScreenshot
+import kotlinx.parcelize.Parcelize
 
 
 @Entity(
     tableName = "games"
 )
+@Parcelize
 data class GamesEntity(
-    @PrimaryKey
-    val id: Int,
-    @ColumnInfo(name = "name")
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val name: String,
-    @ColumnInfo(name = "image")
     val image: String,
-    @ColumnInfo(name = "rating")
     val rating: Float,
-    @ColumnInfo(name = "released")
     val released: String,
-    @ColumnInfo(name = "slug")
     val slug: String,
-    @ColumnInfo(name = "playtime")
     val playtime: Int,
-    @ColumnInfo(name = "updated ")
     val updated: String,
-) {
+    val platforms: List<PlatformContainer>,
+    val screenshots: List<ShortScreenshot>
+) : Parcelable {
     fun toGamesData() = GamesData(
         id = id,
         name = name,
@@ -36,7 +34,9 @@ data class GamesEntity(
         released = released,
         playtime = playtime,
         updated = updated,
-        slug = slug
+        slug = slug,
+        platforms = platforms,
+        screenshot = screenshots
     )
 
 
