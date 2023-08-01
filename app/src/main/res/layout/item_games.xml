@@ -12,18 +12,19 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_image_of_games"
+        android:src="@drawable/ic_downloading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:id="@+id/nameOfGame"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Counter-Strike: Global Offensive"
+        android:text="@string/counter_strike_global_offensive"
         android:fontFamily="@font/font_games"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:maxLines="3"
         android:gravity="center"
         android:textColor="@color/white"

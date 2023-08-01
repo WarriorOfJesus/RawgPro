@@ -6,7 +6,6 @@ import gw.gobpo2005.rawg.databinding.ItemGenreBinding
 import gw.gobpo2005.rawg.main_page.ui.model.MainUi
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
-import timber.log.Timber
 
 class GenreController : BindableItemController<MainUi.Genre, GenreController.Holder>() {
 
@@ -20,7 +19,6 @@ class GenreController : BindableItemController<MainUi.Genre, GenreController.Hol
         private val binding: ItemGenreBinding = ItemGenreBinding.bind(itemView)
 
         override fun bind(data: MainUi.Genre) {
-            Timber.d("__GenreController bind : ${data.name}")
             binding.genreName.text = data.name
         }
 

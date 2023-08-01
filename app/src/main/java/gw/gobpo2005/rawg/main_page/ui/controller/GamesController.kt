@@ -10,8 +10,6 @@ import ru.surfstudio.android.easyadapter.ItemList
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 import ru.surfstudio.android.easyadapter.pagination.EasyPaginationAdapter
-import ru.surfstudio.android.easyadapter.pagination.PaginationState
-import timber.log.Timber
 
 class GamesController(
     private val onClickItemGame: (GamesData) -> Unit,
@@ -49,22 +47,18 @@ class GamesController(
         }
 
         override fun bind(data: MainUi.GamesList) {
-            Timber.d("___GamesController -> bind()")
-            setAdapterItem(data.games)
-            Timber.d("___GamesController data : ${data}")
-            binding.gamesRecycler.scrollToPosition(data.lastVisiblePosition)
             this.data = data
+            setAdapterItem(data.games)
+            binding.gamesRecycler.scrollToPosition(data.lastVisiblePosition)
             if (data.page == 1) onLoadGames(data.genre, data.page, 0)
         }
 
         private fun setAdapterItem(games: List<GamesData>) {
-            Timber.d("___GamesController gamesList : ${games}")
             val itemList = ItemList.create()
             for (game in games) {
                 itemList.add(game, fullGamesController)
             }
-            Timber.d("___GamesController itemList :  ${itemList}")
-            adapter.setItems(itemList, PaginationState.READY)
+            adapter.setItems(itemList, data.paginationState)
         }
     }
 

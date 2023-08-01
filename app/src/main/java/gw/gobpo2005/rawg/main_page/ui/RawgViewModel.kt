@@ -1,7 +1,7 @@
 package gw.gobpo2005.rawg.main_page.ui
 
-import gw.gobpo2005.rawg.common.data.Failure
-import gw.gobpo2005.rawg.common.mvvm.BaseMvvm
+import androidx.lifecycle.viewModelScope
+import gw.gobpo2005.rawg.common.mvvm.BaseViewModel
 import gw.gobpo2005.rawg.main_page.interactor.MainPageInteractor
 import gw.gobpo2005.rawg.main_page.model.games.GamesData
 import gw.gobpo2005.rawg.main_page.model.genres.GenresData
@@ -9,16 +9,13 @@ import gw.gobpo2005.rawg.main_page.ui.model.MainUi
 import gw.gobpo2005.rawg.utils.Utils.PAGE_SIZE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
 
 class RawgViewModel(
     private val interactor: MainPageInteractor,
-) : BaseMvvm() {
-
-
-    private val _errors = MutableStateFlow<Failure?>(null)
-    val errors = _errors.asStateFlow()
+) : BaseViewModel() {
 
     private val _mainUi = MutableStateFlow<List<MainUi>>(emptyList())
     val mainUi = _mainUi.asStateFlow()
@@ -36,10 +33,37 @@ class RawgViewModel(
     }
 
     fun loadGames(genre: String, page: Int, position: Int) {
-        handle {
-            val data = interactor.getGames(page, genre)
-            _mainUi.value = _mainUi.value.addNewGamesByGenre(data, genre, page, position)
+        viewModelScope.launch {
+            val lastMainUi = _mainUi.value.map { mainUi ->
+                when (mainUi) {
+                    is MainUi.GamesList -> {
+                        if (mainUi.genre == genre) mainUi.copy(paginationState = PaginationState.READY)
+                        else mainUi
+                    }
+                    is MainUi.Genre -> mainUi
+                }
+            }
+            try {
+                val data = interactor.getGames(page, genre)
+                _mainUi.value = _mainUi.value.addNewGamesByGenre(data, genre, page, position)
+            } catch (e: Exception) {
+                _mainUi.value = lastMainUi
+                _mainUi.value = _mainUi.value.map { mainUi ->
+                    when (mainUi) {
+                        is MainUi.GamesList -> {
+                            if (mainUi.genre == genre) mainUi.copy(
+                                paginationState = PaginationState.ERROR,
+                                lastVisiblePosition = mainUi.lastVisiblePosition + PAGE_SIZE + 1
+                            )
+                            else mainUi
+                        }
+                        is MainUi.Genre -> mainUi
+                    }
+                }
+            }
         }
+
+
     }
 
 
@@ -58,7 +82,8 @@ class RawgViewModel(
                             DataList(games, page, PAGE_SIZE),
                         ),
                         page = page + 1,
-                        lastVisiblePosition = page * PAGE_SIZE - PAGE_SIZE
+                        lastVisiblePosition = page * PAGE_SIZE - PAGE_SIZE,
+                        paginationState = PaginationState.READY
                     )
                 }
                 is MainUi.Genre -> mainUi

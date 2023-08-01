@@ -6,7 +6,6 @@ import gw.gobpo2005.rawg.main_page.repository.MainLocalRepository
 import gw.gobpo2005.rawg.main_page.repository.remote.MainRemoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class MainPageInteractor(
     private val remoteRepository: MainRemoteRepository,
@@ -29,6 +28,7 @@ class MainPageInteractor(
         return withContext(Dispatchers.IO) {
             val localGenresData = localRepository.getGenres()
             localGenresData.ifEmpty {
+
                 val remoteGenresData = remoteRepository.getGenresGames()
                 localRepository.insertGenresToDb(remoteGenresData)
                 remoteGenresData

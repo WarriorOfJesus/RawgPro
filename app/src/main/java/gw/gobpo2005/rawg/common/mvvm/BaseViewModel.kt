@@ -8,24 +8,22 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-open class BaseMvvm : ViewModel() {
-    protected val _isLoading = MutableStateFlow<Boolean>(false)
-    val isLoading = _isLoading.asStateFlow()
+open class BaseViewModel : ViewModel() {
+
+    protected val _errors = MutableStateFlow<String?>(null)
+    val errors = _errors.asStateFlow()
 
     protected fun handle(onDataHandler: suspend () -> Unit) {
         viewModelScope.launch {
             try {
-                _isLoading.value = true
                 onDataHandler()
             } catch (e: CancellationException) {
+                _errors.value = e.message
                 Timber.e("___ error --->> ${e.message}")
             } catch (t: Throwable) {
+                _errors.value = t.message
                 Timber.e("___error --->> ${t.message}")
-            } finally {
-                _isLoading.value = false
             }
-
-
         }
     }
 }

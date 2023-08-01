@@ -8,7 +8,6 @@ import gw.gobpo2005.rawg.databinding.ItemGamesBinding
 import gw.gobpo2005.rawg.main_page.model.games.GamesData
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
-import timber.log.Timber
 
 class FullGamesController(
     private val onGamesItemClicked: (GamesData) -> Unit
@@ -20,13 +19,12 @@ class FullGamesController(
         private val binding: ItemGamesBinding = ItemGamesBinding.bind(itemView)
         override fun bind(data: GamesData) {
             with(binding) {
-                Timber.d("___FulGamesController : $data")
                 nameOfGame.text = data.name
 
 
                 imageOfGame.load(data.backgroundImage) {
                     crossfade(true)
-                    placeholder(R.drawable.ic_info_image_game)
+                    placeholder(R.drawable.ic_downloading)
                     transformations(CircleCropTransformation())
                 }
                 itemView.setOnClickListener { onGamesItemClicked.invoke(data) }

@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import gw.gobpo2005.rawg.details_page.ui.InfoGameFragment
 import gw.gobpo2005.rawg.R
 import gw.gobpo2005.rawg.common.fragment.BaseFragment
 import gw.gobpo2005.rawg.databinding.FragmentListOfGamesBinding
@@ -17,13 +18,12 @@ import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
-import timber.log.Timber
 
 class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
 
     private val viewModel: RawgViewModel by viewModel()
-    private lateinit var binding: FragmentListOfGamesBinding
 
+    private lateinit var binding: FragmentListOfGamesBinding
     private val easyAdapter = EasyAdapter()
 
     private val gamesController = GamesController(
@@ -52,6 +52,7 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initViews()
         setObserves()
     }
@@ -60,28 +61,25 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
         with(viewModel) {
             observe(mainUi) { mainUiList ->
                 val itemList = ItemList.create()
-                Timber.d("___MainUiList : $mainUiList")
                 mainUiList.forEach { item ->
                     when (item) {
                         is MainUi.GamesList -> itemList.add(item, gamesController)
                         is MainUi.Genre -> itemList.add(item, genreController)
                     }
                 }
-                Timber.d("___itemList : $itemList ")
                 easyAdapter.setItems(itemList)
+                observeNullable(errors) { error ->
+                    if (error != null) {
+                        Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
 
-            observe(isLoading) { loading ->
-                binding.progressBar.isVisible = loading
-//                binding.recyclerOfGames.isVisible = !loading
-            }
-//            observe(loading) { isLoading ->
-//                binding.swipeRefreshLayout.isVisible = isLoading
-//                binding.progressBar.isVisible = isLoading
-//            }
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onDestroy() {
         super.onDestroy()
         GlobalScope.launch {
@@ -110,21 +108,3 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
 
 
 }
-//    private fun setupGameList() {
-//        val adapter = GamesAdapterPaging()
-//        val tryAgainAction: TryAgainAction = { adapter.retry() }
-//
-//        val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
-//
-//        val adapterWithLoadState = adapter.withLoadStateFooter(footerAdapter)
-//
-//        with(binding) {
-//            recyclerOfGames.layoutManager = LinearLayoutManager(requireContext())
-//            recyclerOfGames.adapter = adapterWithLoadState
-//
-//            (recyclerOfGames.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
-//
-//
-//        }
-//
-//    }

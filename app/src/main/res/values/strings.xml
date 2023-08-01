@@ -5,4 +5,17 @@
     <string name="try_again">try again</string>
     <string name="load_error">Oops, can\'t load data</string>
     <string name="parent">Parent</string>
+    <string name="example">Counter-Strike:Global Offensive</string>
+    <string name="pc_playstation_apple_macintoch_linux_sega">PC, PlayStation, Apple Macintoch, Linux, SEGA</string>
+    <string name="platforms">Platforms:</string>
+    <string name="_20_05_23">20–05–23</string>
+    <string name="data_">20–05–23</string>
+    <string name="updated">Updated:</string>
+    <string name="release_data">Release data:</string>
+    <string name="exampleNumber">4.7</string>
+    <string name="counter_strike_global_offensive">Counter-Strike: Global Offensive</string>
+    <string name="genre">Genre</string>
+    <string name="todo">TODO</string>
+    <string name="todo_">image</string>
+    <string name="buttonimage">buttonImage</string>
 </resources>

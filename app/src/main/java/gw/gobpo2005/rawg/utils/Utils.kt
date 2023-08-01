@@ -6,5 +6,4 @@ object Utils {
     const val DATA_BASE_NAME = "Games"
     const val PAGE_SIZE = 20
     const val LIST_OF_GAMES = "game"
-    const val NETWORK_PAGE_SIZE = 20
 }

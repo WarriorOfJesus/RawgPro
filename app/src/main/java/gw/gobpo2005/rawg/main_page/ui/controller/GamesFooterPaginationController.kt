@@ -43,16 +43,21 @@ class GamesFooterPaginationController :
                     PaginationState.READY -> {
                         progressBar.visibility = View.VISIBLE
                         tvmessage.visibility = View.GONE
+                        btnTryAgain.visibility = View.GONE
                     }
                     PaginationState.COMPLETE -> {
                         progressBar.visibility = View.GONE
                         tvmessage.visibility = View.GONE
+                        btnTryAgain.visibility = View.GONE
                     }
                     PaginationState.ERROR -> {
                         progressBar.visibility = View.GONE
                         tvmessage.visibility = View.VISIBLE
+                        btnTryAgain.visibility = View.VISIBLE
                     }
-                    else -> throw IllegalArgumentException("unsupported state : $state")
+                    else -> {
+                        throw IllegalArgumentException("unsupported state : $state")
+                    }
                 }
             }
         }

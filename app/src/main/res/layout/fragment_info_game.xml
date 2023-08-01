@@ -3,23 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:context=".main_page.ui.InfoGameFragment"
     android:layout_height="match_parent"
-    android:background="@drawable/game_fon">
+    android:background="@drawable/game_fon"
+    tools:context=".details_page.ui.InfoGameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#BF000000">
 
+
         <ImageView
             android:id="@+id/imageOfGame"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_info_image_game"
+            android:layout_height="220dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/abstract_game"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/appBar"
+            android:contentDescription="@string/todo" />
 
         <TextView
             android:id="@+id/nameGame"
@@ -30,7 +32,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/font_games"
             android:lines="2"
-            android:text="Counter-Strike:Global Offensive"
+            android:text="@string/example"
             android:textColor="@color/white"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,28 +41,31 @@
 
         <RatingBar
             android:id="@+id/rating"
-            style="?android:attr/ratingBarStyleIndicator"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
-            android:rating="3.5"
+            android:layout_marginTop="8dp"
+            android:isIndicator="true"
+            android:rating="3.94"
+            android:stepSize="0.01"
             android:theme="@style/RatingBar"
             app:layout_constraintStart_toEndOf="@id/rbNumber"
             app:layout_constraintTop_toBottomOf="@+id/nameGame" />
+
         <TextView
             android:id="@+id/rbNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="4.7"
-            android:textStyle="bold"
             android:fontFamily="@font/font_for_data"
+            android:text="@string/exampleNumber"
             android:textColor="@color/white"
             android:textSize="28sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameGame"/>
+            app:layout_constraintTop_toBottomOf="@+id/nameGame" />
 
         <TextView
             android:id="@+id/releaseData"
@@ -69,11 +74,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/font_for_data"
-            android:text="Release data:"
+            android:text="@string/release_data"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating"/>
+            app:layout_constraintTop_toBottomOf="@+id/rating" />
 
         <TextView
             android:id="@+id/updated"
@@ -82,7 +87,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/font_for_data"
-            android:text="Updated:"
+            android:text="@string/updated"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +100,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/font_for_data"
-            android:text="20-05-23"
+            android:text="@string/data_"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -109,7 +114,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/font_for_data"
-            android:text="20-05-23"
+            android:text="@string/_20_05_23"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -123,7 +128,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/font_for_data"
-            android:text="Platforms: "
+            android:text="@string/platforms"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +142,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/font_for_data"
             android:lines="2"
-            android:text="PC, PlayStation, Apple Macintoch, Linux, SEGA"
+            android:text="@string/pc_playstation_apple_macintoch_linux_sega"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -146,17 +151,54 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/screenshotRecycler"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
+            android:layout_marginTop="20dp"
             android:scrollbars="horizontal"
-            tools:listitem="@layout/item_screenshot"
-            app:layout_constraintTop_toBottomOf="@id/platforms"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/platforms"
+            tools:listitem="@layout/item_screenshot" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:backgroundTint="@color/colorless"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
+                <ImageButton
+                    android:id="@+id/imbtBack"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_back_style"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/img"
+                    android:contentDescription="@string/buttonimage" />
+
+                <TextView
+                    android:id="@+id/txtNameGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_genre"
+                    android:text="@string/genre"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
+            </Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
