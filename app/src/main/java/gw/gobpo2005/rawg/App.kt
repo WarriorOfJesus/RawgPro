@@ -16,11 +16,9 @@ class App : Application() {
         setupKoin()
     }
 
-
     private fun setTimber() {
         Timber.plant(Timber.DebugTree())
     }
-
 
     private fun setupKoin() {
         stopKoin()

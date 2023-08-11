@@ -5,5 +5,5 @@ object Utils {
     const val BASE_URL = "https://api.rawg.io"
     const val DATA_BASE_NAME = "Games"
     const val PAGE_SIZE = 20
-    const val LIST_OF_GAMES = "game"
+    const val GAME_KEY = "game"
 }

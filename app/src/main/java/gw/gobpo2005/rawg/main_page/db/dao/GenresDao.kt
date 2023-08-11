@@ -5,9 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import gw.gobpo2005.rawg.main_page.db.model.GamesEntity
 import gw.gobpo2005.rawg.main_page.db.model.GenresEntity
-import kotlinx.coroutines.flow.Flow
 
 
 @Dao

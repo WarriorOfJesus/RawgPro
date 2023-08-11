@@ -28,7 +28,6 @@ class MainPageInteractor(
         return withContext(Dispatchers.IO) {
             val localGenresData = localRepository.getGenres()
             localGenresData.ifEmpty {
-
                 val remoteGenresData = remoteRepository.getGenresGames()
                 localRepository.insertGenresToDb(remoteGenresData)
                 remoteGenresData

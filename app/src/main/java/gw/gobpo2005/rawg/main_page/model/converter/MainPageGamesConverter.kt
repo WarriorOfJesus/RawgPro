@@ -51,7 +51,6 @@ object MainPageGamesConverter {
     private fun fromNetworkShortScreenshot(response : List<ShortScreenshotResponse>) : List<ShortScreenshot>{
         return response.map { data->
             ShortScreenshot(
-//                id = data.id,
                 image = data.image
             )
         }
@@ -108,6 +107,3 @@ object MainPageGamesConverter {
     }
 
 }
-
-
-

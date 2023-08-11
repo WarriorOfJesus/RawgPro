@@ -66,37 +66,3 @@ class DataBaseTypeConverters {
     }
 
 }
-/*
-    @TypeConverter
-    fun fromGamesFullData(data: GamesFullData): String {
-        return gson.toJson(data)
-    }
-
-    @TypeConverter
-    fun toGamesFullData(data: String?): GamesFullData {
-        return gson.fromJson(data, GamesFullData::class.java)
-    }
-
-    @TypeConverter
-    fun fromListGames(data: List<GamesData>?): String {
-        return gson.toJson(data)
-    }
-
-    @TypeConverter
-    fun toListGames(data: String?): List<GamesData>? =
-        data?.let {
-            gson.fromJson(data, object : TypeToken<List<GamesData>>() {}.type)
-        }
-
-    @TypeConverter
-    fun fromShortScreenshots(data: List<ShortScreenshot>): String {
-        return gson.toJson(data)
-    }
-
-    @TypeConverter
-    fun toShortScreenshots(data: String): List<ShortScreenshot> {
-        return gson.fromJson(
-            data,
-            object : TypeToken<List<ShortScreenshot>>() {}.type
-        )
-    }*/

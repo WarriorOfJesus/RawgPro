@@ -31,15 +31,3 @@ data class GamesData(
         screenshots = screenshot
     )
 }
-
-//    5val tba: Boolean?,
-
-//   8val ratingTop: Int?,
-//    val ratings: List<RatingData>?,
-//    val ratingsCount: Int?,
-//    val reviewsTextCount: Int?,
-//    val added: Int?,
-//    val addedByStatus: AddedByStatus?,
-//    val metacritic: Int?,
-
-//    last val suggestionsCount: Int?,

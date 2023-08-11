@@ -25,10 +25,6 @@ class ScreenshotAdapter(
         holder.onBind(screenshot)
     }
 
-    override fun onViewRecycled(holder: ScreenshotViewHolder) {
-        super.onViewRecycled(holder)
-    }
-
     fun setData(games: List<ShortScreenshot>) {
         val diffCallBack = getDiffCallback(screenshotList, games)
         val diffResult = DiffUtil.calculateDiff(diffCallBack)

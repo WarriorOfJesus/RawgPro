@@ -49,15 +49,24 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
         return binding.root
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViews()
-        setObserves()
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onDestroy() {
+        super.onDestroy()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO + NonCancellable) {
+                Glide.get(requireContext()).clearDiskCache()
+            }
+        }
+        activity?.finish()
     }
 
-    private fun setObserves() {
+    override fun initViews() {
+        with(binding) {
+            recyclerOfGames.adapter = easyAdapter
+        }
+    }
+
+    override fun bind() {
         with(viewModel) {
             observe(mainUi) { mainUiList ->
                 val itemList = ItemList.create()
@@ -79,32 +88,11 @@ class ListOfGamesFragment : BaseFragment(R.layout.fragment_list_of_games) {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    override fun onDestroy() {
-        super.onDestroy()
-        GlobalScope.launch {
-            withContext(Dispatchers.IO + NonCancellable) {
-                Glide.get(requireContext()).clearDiskCache()
-            }
-        }
-        activity?.finish()
-    }
-
-    private fun initViews() {
-        with(binding) {
-            recyclerOfGames.adapter = easyAdapter
-        }
-    }
-
     private fun onGamesItemClicked(gamesDerails: GamesData) {
         val fragment = InfoGameFragment.newInstance(gamesDerails)
-        parentFragmentManager.findFragmentById(R.id.fragmentContainer).also {
-            it?.hideAndAddFragment(
-                addFragment = fragment,
-                id = R.id.fragmentContainer
-            )
-        }
+        hideAndAddFragment(
+            addFragment = fragment,
+            id = R.id.fragmentContainer
+        )
     }
-
-
 }

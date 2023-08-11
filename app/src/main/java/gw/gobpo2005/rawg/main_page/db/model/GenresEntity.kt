@@ -15,8 +15,6 @@ data class GenresEntity(
     val name: String,
     @PrimaryKey
     val slug: String,
-//    @ColumnInfo(name = "games")
-//    val games: List<GamesData>? = emptyList()
 ) : Parcelable {
     fun toGenresData() = GenresData(
         name = name ,
